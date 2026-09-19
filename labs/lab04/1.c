@@ -5,7 +5,7 @@ typedef struct {
     double riskScore;
 } Portfolio;
 
-void swap(Portfolio *a, Portfolio *b)
+void swapPortfolio(Portfolio *a, Portfolio *b)
 {
     Portfolio temp = *a;
     *a = *b;
@@ -15,31 +15,25 @@ void swap(Portfolio *a, Portfolio *b)
 void heapify(Portfolio portfolios[], int n, int i)
 {
     int smallest = i;
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
 
-    while (1)
+    if (left < n &&
+        portfolios[left].riskScore < portfolios[smallest].riskScore)
     {
-        int left = 2 * i + 1;
-        int right = 2 * i + 2;
+        smallest = left;
+    }
 
-        if (left < n &&
-            portfolios[left].riskScore < portfolios[smallest].riskScore)
-        {
-            smallest = left;
-        }
+    if (right < n &&
+        portfolios[right].riskScore < portfolios[smallest].riskScore)
+    {
+        smallest = right;
+    }
 
-        if (right < n &&
-            portfolios[right].riskScore < portfolios[smallest].riskScore)
-        {
-            smallest = right;
-        }
-
-        if (smallest == i)
-        {
-            break;
-        }
-
-        swap(&portfolios[i], &portfolios[smallest]);
-        i = smallest;
+    if (smallest != i)
+    {
+        swapPortfolio(&portfolios[i], &portfolios[smallest]);
+        heapify(portfolios, n, smallest);
     }
 }
 
@@ -54,7 +48,7 @@ void heapSort(Portfolio portfolios[], int n)
 
     for (i = n - 1; i > 0; i--)
     {
-        swap(&portfolios[0], &portfolios[i]);
+        swapPortfolio(&portfolios[0], &portfolios[i]);
         heapify(portfolios, i, 0);
     }
 }
@@ -72,6 +66,8 @@ int main()
     int i;
 
     heapSort(portfolios, n);
+
+    printf("Heap Sort:\n");
 
     for (i = 0; i < n; i++)
     {
