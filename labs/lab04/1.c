@@ -14,26 +14,26 @@ void swapPortfolio(Portfolio *a, Portfolio *b)
 
 void heapify(Portfolio portfolios[], int n, int i)
 {
-    int smallest = i;
+    int largest = i;
     int left = 2 * i + 1;
     int right = 2 * i + 2;
 
     if (left < n &&
-        portfolios[left].riskScore < portfolios[smallest].riskScore)
+        portfolios[left].riskScore > portfolios[largest].riskScore)
     {
-        smallest = left;
+        largest = left;
     }
 
     if (right < n &&
-        portfolios[right].riskScore < portfolios[smallest].riskScore)
+        portfolios[right].riskScore > portfolios[largest].riskScore)
     {
-        smallest = right;
+        largest = right;
     }
 
-    if (smallest != i)
+    if (largest != i)
     {
-        swapPortfolio(&portfolios[i], &portfolios[smallest]);
-        heapify(portfolios, n, smallest);
+        swapPortfolio(&portfolios[i], &portfolios[largest]);
+        heapify(portfolios, n, largest);
     }
 }
 
@@ -55,19 +55,26 @@ void heapSort(Portfolio portfolios[], int n)
 
 int main()
 {
-    Portfolio portfolios[] = {
-        {"PF01", 45.2},
-        {"PF02", 91.8},
-        {"PF03", 12.5},
-        {"PF04", 78.3}
-    };
-
-    int n = sizeof(portfolios) / sizeof(portfolios[0]);
+    int n;
     int i;
+
+    printf("Enter number of portfolios: ");
+    scanf("%d", &n);
+
+    Portfolio portfolios[n];
+
+    printf("Enter portfolio ID and risk score:\n");
+
+    for (i = 0; i < n; i++)
+    {
+        scanf("%s %lf",
+              portfolios[i].portfolioId,
+              &portfolios[i].riskScore);
+    }
 
     heapSort(portfolios, n);
 
-    printf("Heap Sort:\n");
+    printf("\nSorted portfolios:\n");
 
     for (i = 0; i < n; i++)
     {
