@@ -14,26 +14,26 @@ void swapPortfolio(Portfolio *a, Portfolio *b)
 
 void heapify(Portfolio portfolios[], int n, int i)
 {
-    int largest = i;
+    int smallest = i;
     int left = 2 * i + 1;
     int right = 2 * i + 2;
 
     if (left < n &&
-        portfolios[left].riskScore > portfolios[largest].riskScore)
+        portfolios[left].riskScore < portfolios[smallest].riskScore)
     {
-        largest = left;
+        smallest = left;
     }
 
     if (right < n &&
-        portfolios[right].riskScore > portfolios[largest].riskScore)
+        portfolios[right].riskScore < portfolios[smallest].riskScore)
     {
-        largest = right;
+        smallest = right;
     }
 
-    if (largest != i)
+    if (smallest != i)
     {
-        swapPortfolio(&portfolios[i], &portfolios[largest]);
-        heapify(portfolios, n, largest);
+        swapPortfolio(&portfolios[i], &portfolios[smallest]);
+        heapify(portfolios, n, smallest);
     }
 }
 
