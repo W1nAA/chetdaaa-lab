@@ -53,13 +53,13 @@ int main() {
 
     Order *orders = (Order *)malloc(n * sizeof(Order));
 
-    printf("\n--- Enter Order Details ---\n");
+    printf("Enter Order Details:\n");
     for (int i = 0; i < n; i++) {
         scanf("%s %d", orders[i].orderId ,&orders[i].priceInCents);
     }
     countingSort(orders, n);
 
-    printf("\nAfter Counting Sort (Lowest -> Highest)\n");
+    printf("\nSorted Orders:\n");
     for (int i = 0; i < n; i++) {
         printf("%s %d\n", orders[i].orderId, orders[i].priceInCents);
     }
