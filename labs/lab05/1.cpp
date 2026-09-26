@@ -9,7 +9,6 @@ struct Point {
     double x, y;
 };
 
-// ฟังก์ชันคำนวณ Closest Pair แบบ Brute Force ตาม Pseudocode
 double closestPairBruteForce(const std::vector<Point>& P, Point& p1, Point& p2) {
     double min_dist = std::numeric_limits<double>::infinity();
     int n = P.size();
@@ -33,8 +32,8 @@ double closestPairBruteForce(const std::vector<Point>& P, Point& p1, Point& p2) 
 int main() {
     std::vector<int> N_list = {100, 1000, 5000, 10000, 20000};
 
-    // ตัวสร้างพิกัดสุ่ม
-    std::mt19937 rng(1337); // กำหนด Seed เพื่อให้ผลสุ่มคงที่
+   
+    std::mt19937 rng(1337); 
     std::uniform_real_distribution<double> dist(0.0, 10000.0);
 
     for (int N : N_list) {
@@ -45,12 +44,12 @@ int main() {
 
         Point best_p1, best_p2;
 
-        // เริ่มจับเวลา
+       
         auto start = std::chrono::high_resolution_clock::now();
 
         double min_d = closestPairBruteForce(P, best_p1, best_p2);
 
-        // สิ้นสุดจับเวลา
+        
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double, std::milli> elapsed = end - start;
 
