@@ -12,7 +12,7 @@ struct TSPResult {
     double min_cost;
 };
 
-TSPResult TSP_Exhaustive(const vector<vector<double>>& dist_matrix, int N) {
+TSPResult TSP_Exhaustive(const vector<vector<double>> &dist_matrix, int N) {
     vector<int> cities(N - 1);
 
     for (int i = 0; i < N - 1; i++) {
@@ -46,7 +46,8 @@ TSPResult TSP_Exhaustive(const vector<vector<double>>& dist_matrix, int N) {
     return {best_path, min_cost};
 }
 
-vector<vector<double>> generate_distance_matrix(int N, unsigned int seed = 42) {
+vector<vector<double>> generate_distance_matrix(int N) {
+    unsigned int seed = 21;
     mt19937 rng(seed);
     uniform_real_distribution<double> dist(10.0, 100.0);
 
