@@ -34,7 +34,7 @@ int main() {
     std::cout << "--------------------------------------\n";
 
     std::vector<int> N_list = {100, 1000, 5000, 10000, 20000};
-    std::mt19937 rng(1337); // Seed การสุ่มค่า
+    std::mt19937 rng(1337); 
     std::uniform_real_distribution<double> dist(0.0, 10000.0);
 
     for (int N : N_list) {
