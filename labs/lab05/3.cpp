@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <numeric>
 #include <algorithm>
 #include <chrono>
 #include <random>
@@ -15,7 +14,10 @@ struct TSPResult {
 
 TSPResult TSP_Exhaustive(const vector<vector<double>>& dist_matrix, int N) {
     vector<int> cities(N - 1);
-    iota(cities.begin(), cities.end(), 1);
+
+    for (int i = 0; i < N - 1; i++) {
+        cities[i] = i + 1;
+    }
 
     double min_cost = numeric_limits<double>::infinity();
     vector<int> best_path;
@@ -26,8 +28,8 @@ TSPResult TSP_Exhaustive(const vector<vector<double>>& dist_matrix, int N) {
         current_path.push_back(0);
         current_path.insert(current_path.end(), cities.begin(), cities.end());
         current_path.push_back(0);
-
         double current_cost = 0.0;
+
         for (int i = 0; i < N; ++i) {
             int u = current_path[i];
             int v = current_path[i + 1];
