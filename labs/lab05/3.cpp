@@ -64,11 +64,12 @@ vector<vector<double>> generate_distance_matrix(int N) {
 
 int main() {
     vector<int> test_sizes = {8, 9, 10, 11, 12, 13};
+    double prev_time = 0.0;
 
     cout << fixed << setprecision(6);
-    cout << "========================================================================\n";
-    cout << " N  | (N-1)! Paths | Execution Time (s) | Execution Time (ms) | Min Cost \n";
-    cout << "========================================================================\n";
+    cout << "================================================================\n";
+    cout << " N  | (N-1)! Paths | Execution Time (s) | Min Cost | t(N)/t(N-1)\n";
+    cout << "================================================================\n";
 
     for (int N : test_sizes) {
         vector<vector<double>> dist_matrix = generate_distance_matrix(N);
@@ -79,8 +80,8 @@ int main() {
 
         auto end_time = chrono::high_resolution_clock::now();
 
-        chrono::duration<double> elapsed_seconds = end_time - start_time;
-        auto elapsed_ms = chrono::duration_cast<chrono::milliseconds>(end_time - start_time).count();
+        chrono::duration<double> duration = end_time - start_time;
+        double current_time = duration.count();
 
         long long factorial = 1;
         for (int i = 1; i <= N - 1; ++i) {
@@ -89,11 +90,19 @@ int main() {
 
         cout << setw(3) << N << " | "
              << setw(12) << factorial << " | "
-             << setw(18) << elapsed_seconds.count() << " | "
-             << setw(17) << elapsed_ms << " | "
-             << setw(8) << setprecision(2) << result.min_cost << "\n";
+             << setw(18) << current_time << " | "
+             << setw(8) << setprecision(2) << result.min_cost << " | ";
+
+        if (N == 8) {
+            cout << "    -    " << endl;
+        } else {
+            double ratio = current_time / prev_time;
+            cout << setw(8) << ratio << endl;
+        }
+
+        prev_time = current_time;
     }
-    cout << "========================================================================\n";
+    cout << "================================================================\n";
 
     return 0;
 }
