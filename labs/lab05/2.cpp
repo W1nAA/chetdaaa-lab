@@ -49,7 +49,7 @@ int main() {
     vector<int> N_values = {10, 15, 20, 22, 25, 28, 30};
 
     for (int N : N_values) {
-        int W = N * 5;
+        int W = N * 3;
 
         vector<int> weights(N);
         vector<int> values(N);
