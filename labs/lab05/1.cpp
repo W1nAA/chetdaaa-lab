@@ -34,17 +34,14 @@ double closestPairBruteForce(const vector<Point>& P, Point& p1, Point& p2) {
 }
 
 int main() {
-    cout << "Brute Force & Exhaustive Search Task 1\n";
-    cout << "---------------------------------------------------------------------------------\n";
-    cout << setw(10) << "N"
-         << setw(20) << "C(N,2)"
-         << setw(20) << "Time (ms)"
-         << setw(25) << "Ratio t(N)/t(N/2)" << "\n";
-    cout << "---------------------------------------------------------------------------------\n";
+    unsigned int seed = 21;
+    cout << "=========================================================\n";
+    cout << "   N   |    C(N,2)    | Execution Time (ms) | t(N)/t(N/2)\n";
+    cout << "=========================================================\n";
 
     vector<int> N_list = {100, 1000, 5000, 10000, 20000};
 
-    mt19937 rng(1337);
+    mt19937 rng(seed);
     uniform_real_distribution<double> dist(0.0, 10000.0);
 
     double prev_time = -1.0;
@@ -70,25 +67,25 @@ int main() {
 
         long long num_pairs = (long long)N * (N - 1) / 2;
 
-        cout << setw(10) << N
-             << setw(20) << num_pairs
-             << setw(20) << fixed << setprecision(2) << current_time;
+        cout << setw(6) << N << " | "
+             << setw(12) << num_pairs << " | "
+             << setw(19) << fixed << setprecision(2) << current_time << " | ";
 
         if (prev_N > 0 && N == prev_N * 2 && prev_time > 0) {
             double ratio = current_time / prev_time;
 
-            cout << setw(25)
+            cout << setw(8)
                  << fixed << setprecision(2)
                  << ratio << "\n";
         } else {
-            cout << setw(25) << "-" << "\n";
+            cout << setw(8) << "-" << "\n";
         }
 
         prev_time = current_time;
         prev_N = N;
     }
 
-    cout << "---------------------------------------------------------------------------------\n";
+    cout << "=========================================================\n";
 
     return 0;
 }
