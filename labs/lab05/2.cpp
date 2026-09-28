@@ -1,12 +1,14 @@
 #include <iostream>
 #include <vector>
-#include <cstdlib>
+#include <random>
 #include <chrono>
 #include <iomanip>
 
-void knapsackExhaustive(const std::vector<int>& weights, const std::vector<int>& values, int N, int W) {
+using namespace std;
+
+void knapsackExhaustive(const vector<int>& weights, const vector<int>& values, int N, int W) {
     int max_value = 0;
-    int best_mask = 0;
+    long long best_mask = 0;
 
     long long total_combinations = 1LL << N;
 
@@ -23,34 +25,50 @@ void knapsackExhaustive(const std::vector<int>& weights, const std::vector<int>&
 
         if (current_weight <= W && current_value > max_value) {
             max_value = current_value;
-            best_mask = static_cast<int>(mask);
+            best_mask = mask;
         }
     }
 
-    std::cout << "N = " << std::setw(2) << N << " | Max Value = " << max_value << "\n";
+    cout << "N = " << setw(2) << N << " | Max Value = " << max_value << "\n" 
+    << "Subset = " << total_combinations << "\n";
+
+    cout << "Chosen Items: { ";
+    bool first = true;
+    for (int i = 0; i < N; ++i) {
+        if ((best_mask >> i) & 1) {
+            if (!first) cout << ", ";
+            cout << "Item " << i;
+            first = false;
+        }
+    }
+    cout << " }\n";
 }
 
 int main() {
-    std::vector<int> N_values = {10, 15, 20, 22, 25, 28, 30};
+    unsigned int seed = 21;
+    vector<int> N_values = {10, 15, 20, 22, 25, 28, 30};
 
     for (int N : N_values) {
         int W = N * 5;
 
-        std::vector<int> weights(N);
-        std::vector<int> values(N);
+        vector<int> weights(N);
+        vector<int> values(N);
 
-        std::srand(42);
+        mt19937 rng(seed);
+
+        uniform_int_distribution<int> dist_weight(1, 20);
+        uniform_int_distribution<int> dist_value(10, 99);
+
         for (int i = 0; i < N; ++i) {
-            weights[i] = (std::rand() % 20) + 1;
-            values[i] = (std::rand() % 90) + 10;
+            weights[i] = dist_weight(rng);
+            values[i] = dist_value(rng);
         }
 
-        auto start = std::chrono::high_resolution_clock::now();
+        auto start = chrono::high_resolution_clock::now();
         knapsackExhaustive(weights, values, N, W);
-        auto end = std::chrono::high_resolution_clock::now();
+        auto end = chrono::high_resolution_clock::now();
 
-        std::chrono::duration<double> elapsed = end - start;
-        std::cout << "Time used: " << std::fixed << std::setprecision(4) 
-                  << elapsed.count() << " seconds\n\n";
+        chrono::duration<double> elapsed = end - start;
+        cout << "Time used: " << fixed << setprecision(4) << elapsed.count() << " seconds\n\n";
     }
 }
