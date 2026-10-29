@@ -17,19 +17,16 @@ int main()
     int v[n + 1];
     int dp[n + 1][T + 1];
 
-    // รับข้อมูล
     for (int i = 1; i <= n; i++)
     {
         scanf("%d %d", &t[i], &v[i]);
     }
 
-    // กรณีไม่มีสินค้า
     for (int w = 0; w <= T; w++)
     {
         dp[0][w] = 0;
     }
 
-    // Dynamic Programming
     for (int i = 1; i <= n; i++)
     {
         for (int w = 0; w <= T; w++)
