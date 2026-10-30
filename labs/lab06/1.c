@@ -11,9 +11,9 @@ int main(){
     int n;
     scanf("%d",&n);
 
-    int *x = (int *)malloc(n * sizeof(int));
-    int *dp_true = (int *)malloc(n * sizeof(int));
-    int *dp_false = (int *)malloc(n * sizeof(int));
+    int x[n];
+    int dp_true[n];
+    int dp_false[n];
 
     for(int i=0; i < n; i++){
         scanf("%d", &x[i]);
@@ -40,8 +40,4 @@ int main(){
         printf("%d ",dp_false[i]);
     }
     printf("\n");
-
-    free(x);
-    free(dp_false);
-    free(dp_true);
-}
+} 
